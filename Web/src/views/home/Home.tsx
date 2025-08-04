@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import Header from "../../components/organisms/Header";
 import { AuthContext } from "../../context/AuthContext";
 import { useAuth } from "../../hooks/useAuth";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import type { User } from "../../interfaces/User";
 import type { Chatbot } from "../../api/Api.type";
 import { ChatbotContext } from "../../context/ChatbotsContext";

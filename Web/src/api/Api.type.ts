@@ -18,10 +18,12 @@ export interface Chatbot {
     name: string
     description: string
     owner: string
-    messages: {
-        role: "assistant" | 'user' | 'system'
-        content: string
-    }[]
+    messages: ChatbotMessage[]
+}
+
+export interface ChatbotMessage {
+    role: "assistant" | 'user' | 'system'
+       content: string
 }
 
 export interface ChatbotListResponse {

@@ -2,17 +2,19 @@ import { useContext, useEffect, useState } from "react";
 import Text from "../../components/atoms/Text";
 import { ChatbotContext } from "../../context/ChatbotsContext";
 import { useParams } from "react-router-dom";
-import type { Chatbot } from "../../api/Api.type";
+import type { Chatbot, ChatbotMessage } from "../../api/Api.type";
 import { ChatConversation } from "../../components/organisms/ChatConversation";
 import Divider from "../../components/atoms/Divider";
 import Input from "../../components/atoms/Input";
 import Button from "../../components/atoms/Button";
 import SendIcon from "../../components/atoms/icons/SendIcon";
 import { useChatbot } from "../../hooks/useChatbot";
+import Loading from "../../components/atoms/Loading";
 
 export default function ChatbotConversation() {
   const [chat, setChat] = useState<Chatbot | null>(null);
   const [chatInput, setChatInput] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const { loadedChatbots } = useContext(ChatbotContext);
   const params = useParams();
@@ -28,6 +30,7 @@ export default function ChatbotConversation() {
   };
 
   const onSendMessage = async () => {
+    setLoading(true)
     if (chatInput && chat?.id) {
       const res = await sendMessage({
         chatbotId: chat.id,
@@ -35,9 +38,24 @@ export default function ChatbotConversation() {
       });
 
       if (res) {
-        console.log("res de sned message ", res);
+        const userMessage: ChatbotMessage = {
+          role: "user",
+          content: chatInput,
+        };
+        const assistantResponse: ChatbotMessage = {
+          role: "assistant",
+          content: res.reply,
+        };
+        const messages = [...chat.messages, userMessage, assistantResponse];
+        setChat({
+          ...chat,
+          messages,
+        });
+
+        setChatInput("");
       }
     }
+    setLoading(false)
   };
 
   useEffect(() => loadChatbotInfo, []);
@@ -55,24 +73,33 @@ export default function ChatbotConversation() {
       <div className="max-h-[70vh] md:max-w-[50vw]   mx-auto overflow-scroll">
         {chat ? <ChatConversation messages={chat?.messages ?? []} /> : <></>}
 
-        <div className="flex flex-col p-2">
-          <Input
-            value={chatInput}
-            onChange={(e) => setChatInput(e.target.value)}
-            placeholder="Ask something"
-            className="border-[1px] rounded-sm p-2 border-gray-300"
-          />
-          <Button
-            className="flex flex-row-reverse"
-            variant="ghost"
-            onClick={(e) => {
-              e.preventDefault();
-              onSendMessage();
-            }}
-          >
-            <SendIcon />
-          </Button>
-        </div>
+        <form className="flex flex-col p-2">
+          {loading ? (
+            <Loading />
+          ) : (
+            <>
+              <Input
+                value={chatInput}
+                onChange={(e) => setChatInput(e.target.value)}
+                placeholder="Ask something"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") onSendMessage();
+                }}
+                className="border-[1px] rounded-sm p-2 border-gray-300"
+              />
+              <Button
+                className="flex flex-row-reverse"
+                type="submit"
+                variant="ghost"
+                onClick={(e) => {
+                  e.preventDefault();
+                }}
+              >
+                <SendIcon />
+              </Button>
+            </>
+          )}
+        </form>
       </div>
     </div>
   );
