@@ -31,7 +31,6 @@ export default function CreateChatbot() {
 
   const onSubmitChatbot = async (data: Record<string, string>) => {
     setLoading(true);
-    console.log("data?", data);
     const chatbot = data as unknown as CreateChatbotDTO;
     if (chatbot?.description && chatbot?.name && user?.email) {
       await createChatbot({

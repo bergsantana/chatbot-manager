@@ -62,7 +62,7 @@ export default function ChatbotConversation() {
 
   return (
     <div className="p-1">
-      <div className="flex flex-col w-84  ">
+      <div className="flex flex-col w-84 mx-auto  ">
         <Text variant="title">Chating with {chat?.name ?? "Chatbot"}</Text>
         <Text className="text-gray-600 self-end italic" variant="label">
           {chat?.description ?? " "}

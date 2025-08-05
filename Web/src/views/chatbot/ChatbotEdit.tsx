@@ -42,9 +42,7 @@ export default function EditChatbot() {
 
   const submitEdition = async (chatbotInput: Record<string, string>) => {
     const parsedChatbot = chatbotInput as unknown as Chatbot;
-    console.log("parsed?", parsedChatbot);
     if (parsedChatbot && chatbot) {
-      console.log("true all");
       const res = await updateChatbot({
         id: chatbot.id,
         description: parsedChatbot.description || chatbot.description,
@@ -52,7 +50,6 @@ export default function EditChatbot() {
         owner: chatbot.owner,
         messages: chatbot.messages,
       });
-      console.log("true res?", res);
       if (res) navigate("/chatbot/list");
     }
   };

@@ -34,7 +34,7 @@ function Home() {
       >
         <div>
           <Header loggedIn={!!user?.authToken} />
-          <div className="bg-white my-1.5 rounded-sm">
+          <div className="bg-white my-1.5 rounded-sm min-h-[85vh]">
             <Outlet />
           </div>
         </div>

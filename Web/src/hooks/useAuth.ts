@@ -36,8 +36,7 @@ export const useAuth = () => {
   const login = useCallback(async (email: string, password: string) => {
     try {
       const res = await APIService.login({ email, password });
-      console.log("res", res);
-      const data = res?.data;
+       const data = res?.data;
       if (data.token && data.user) {
         const userInfo: User = { authToken: data.token, ...data.user };
         setItem("app_token", data.token);

@@ -4,15 +4,18 @@ import Text from "../../components/atoms/Text";
 import Form from "../../components/organisms/Form";
 import type { LoginDTO } from "../../api/Api.type";
 import { useAuth } from "../../hooks/useAuth";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import Notification from "../../components/organisms/Notification";
 
 export default function Login() {
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState("");
+
   const navigate = useNavigate();
   const { login, loadUserInformation } = useAuth();
   const goToSignUp = () => navigate("/signup");
-  const { user: userContext, setUser: setUserContext } =
-    useContext(AuthContext);
+  const { setUser: setUserContext } = useContext(AuthContext);
 
   const fields = [
     {
@@ -39,13 +42,12 @@ export default function Login() {
           setUserContext(loaded);
           navigate("/chatbot/list");
         } else {
-          throw Error("Could not parse user information");
+          setNotificationMessage("Invalid credentials");
+          setShowNotification(true);
         }
-
-        console.log("componente login", userContext, loaded);
-      } catch (err) {
-        console.log("err");
-        console.log(err);
+      } catch (err: any) {
+        setNotificationMessage(err?.message);
+        setShowNotification(true);
       }
     }
   };
@@ -70,6 +72,14 @@ export default function Login() {
           Register here
         </Button>
       </div>
+
+      {showNotification && (
+        <Notification
+          type="error"
+          message={notificationMessage}
+          onClose={() => setShowNotification(false)}
+        />
+      )}
     </div>
   );
 }

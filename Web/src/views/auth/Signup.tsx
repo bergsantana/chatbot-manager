@@ -4,16 +4,20 @@ import Text from "../../components/atoms/Text";
 import { useAuth } from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/atoms/Button";
+import Notification from "../../components/organisms/Notification";
 
 export default function Signup() {
   const [name, setName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");
 
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState("");
+
   const { singup } = useAuth();
   const navigate = useNavigate();
 
-  const goToLogin = () => navigate('/login')
+  const goToLogin = () => navigate("/login");
 
   const handleSubmit = async () => {
     if (name && password && email) {
@@ -21,6 +25,9 @@ export default function Signup() {
         name,
         password,
         email,
+      }).catch((err: any) => {
+        setNotificationMessage("Invalid inputs: " + err.message);
+        setShowNotification(true);
       });
       navigate("/login");
     }
@@ -58,11 +65,20 @@ export default function Signup() {
         Submit
       </Button>
       <div className="flex  flex-col  p-3 mx-auto  ">
-        <Text variant="caption" className="text-center">Already registered?</Text>
+        <Text variant="caption" className="text-center">
+          Already registered?
+        </Text>
         <Button size="sm" variant="ghost" onClick={goToLogin}>
           Login here
         </Button>
       </div>
+      {showNotification && (
+        <Notification
+          type="error"
+          message={notificationMessage}
+          onClose={() => setShowNotification(false)}
+        />
+      )}
     </div>
   );
 }
