@@ -22,26 +22,27 @@ Server/
  
 ```
 #### Frontend
+- React com TailwindCSS para telas de Autenticação e gerenciamento de bots
 ```
 src/
-├── components/            # Reusable UI components (Atomic Design)
-│   ├── atoms/             # Smallest building blocks (Button, Icon, Text)
-│   ├── molecules/         # Combinations of atoms (FormField, Notification)
-│   ├── organisms/         # Complex UI sections (LoginForm, ChatHeader)
-├── contexts/              # React context providers (e.g., AuthContext)
-├── hooks/                 # Custom hooks (e.g., useAuth, useChatbots)
-├── api/                   # Axios setup + endpoint functions
-│   utils/                 # Formatters, validators, helpers
-├── views/                 # Route pages (mapped in router)
+├── components/            # Compontents reutilizavés (Atomic Design)
+│   ├── atoms/             # (Button, Icon, Text)
+│   ├── molecules/         # Combinações de átomos (FormField, Notification)
+│   ├── organisms/         # Combinações de moleculas (LoginForm, ChatHeader)
+├── contexts/              # Context Providers (ex: AuthContext)
+├── hooks/                 # Hooks customizados (e.g., useAuth, useChatbots)
+├── api/                   # Axios + conexão a API
+│   utils/                 # helpers
+├── views/                 # Páginas da aplicação
 │   ├── Home/
 │   ├── Auth/
-│   ├── Chatbots/          # Feature folder for chatbot-related pages
+│   ├── Chatbots/          
 │   │   ├── List.tsx
 │   │   ├── Create.tsx
 │   │   ├── Edit.tsx
 │   │   ├── Conversation.tsx
-├── router/                # React Router config with protected routes
-├── main.tsx               # Entry point
+├── router/                # Rotas 
+├── main.tsx               # Começo da aplicação
 ```
  
 
@@ -73,4 +74,6 @@ src/
     http://127.0.0.1:5173
    ```
 
-### Demo
+### Mobile Demo
+![ezgif-8ef1492710c2bb](https://github.com/user-attachments/assets/dcf3a286-1373-4f1b-bcf2-2eca7b092ee7)
+
