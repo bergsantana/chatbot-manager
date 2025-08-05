@@ -8,7 +8,7 @@ Este projeto descreve um chat conectado a uma LLM hospedada localmente com Docke
  
 ### Arquitetura 
 #### Backend 
- - Clean Architecture (Arquitetura Limpa) é um padrão de projeto que enfatiza a separação de responsabilidade
+ - Clean Architecture para estrutura de pastas: um padrão de projeto que enfatiza a separação de responsabilidade
  - Banco de dados MongoDb Chave-Valor para persistencia de dados relevantes a LLM
  - Redis para cache
  - Ollama para gerenciar LLMs
