@@ -36,12 +36,11 @@ export default function Login() {
         await login(loginData.email, loginData.password);
         const loaded = await loadUserInformation();
         if (loaded) {
-          setUserContext(loaded)
-          navigate('/chatbot/list')
-        } else{
-          
-          throw Error('Could not parse user information')
-        };
+          setUserContext(loaded);
+          navigate("/chatbot/list");
+        } else {
+          throw Error("Could not parse user information");
+        }
 
         console.log("componente login", userContext, loaded);
       } catch (err) {

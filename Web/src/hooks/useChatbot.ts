@@ -1,5 +1,9 @@
 import APIService from "../api/API.service";
-import type { ChatbotListResponse } from "../api/Api.type";
+import type {
+  Chatbot,
+  ChatbotListResponse,
+  CreateChatbotDTO,
+} from "../api/Api.type";
 import type { SendChatMessageDTO } from "../interfaces/ChatbotCardProps";
 
 export const useChatbot = () => {
@@ -33,8 +37,30 @@ export const useChatbot = () => {
     }
   };
 
+  const updateChatbot = async (chatbot: Chatbot) => {
+    try {
+      const response = await APIService.updateChatbotInfo(chatbot);
+      if (response.data.message === "Chatbot updated.") return true;
+      console.log("Could not update chatbot ", JSON.stringify(chatbot));
+    } catch (err) {
+      console.log("ERROR While updating chatbot", err);
+    }
+  };
+
+  const createChatbot = async (assistant: CreateChatbotDTO) => {
+    try {
+      const response = await APIService.createChatbot(assistant);
+      if (response?.data.message === "Chatbot created.") return true;
+      console.log("Could create chatbot ", JSON.stringify(assistant));
+    } catch (err) {
+      console.log("ERROR", err);
+    }
+  };
+
   return {
     loadChatbots,
     sendMessage,
+    updateChatbot,
+    createChatbot,
   };
 };

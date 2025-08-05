@@ -18,7 +18,7 @@ export default function ChatbotCard({
   onClickEdit,
 }: Props) {
   return (
-    <div className="p-4 border rounded  border-indigo-800 hover:bg-gray-50 cursor-pointer">
+    <div className="p-4 border rounded w-80 self-center  border-indigo-800 hover:bg-gray-50 cursor-pointer">
       <h3 className="font-bold text-lg">{name}</h3>
       <p className="text-sm text-gray-600">{description}</p>
       <Tooltip content="Chat with this assistant">

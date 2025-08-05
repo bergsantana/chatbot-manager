@@ -1,8 +1,11 @@
 import axios, { type AxiosInstance, type AxiosResponse } from "axios";
 import type {
+  Chatbot,
   ChatSendMessageReponse,
+  CreateChatbotDTO,
   LoginDTO,
   LoginResponse,
+  SingUPDTO,
 } from "./Api.type";
 import { APIConfig } from "./Api.config";
 
@@ -57,6 +60,14 @@ export class APIService {
     }
   }
 
+  static signup= async (data: SingUPDTO) =>  {
+    try { 
+      return axiosInstance.post('/auth/signup', data)   
+    } catch (err) {
+      console.log('Error creating user', err)
+    }
+  }
+
   static findBotsByUserPaginated = async (page: number, pageSize: number) => {
     try {
       return axiosInstance.get(
@@ -66,6 +77,22 @@ export class APIService {
       throw new Error(parseError(err));
     }
   };
+
+  static updateChatbotInfo = async (assistant: Chatbot) => {
+    try {
+      return axiosInstance.put(`/chatbot/update/${assistant.id}`, assistant);
+    } catch (err) {
+      throw new Error(parseError(err));
+    }
+  };
+
+  static createChatbot = async (assistant: CreateChatbotDTO ) => {
+    try {
+      return axiosInstance.post('/chatbot/create', assistant)
+    } catch (err) {
+      console.log('Error creating chatbot', err  )
+    }
+  }
 
   static sendMessageToChatbot = async (
     chatbotId: string,

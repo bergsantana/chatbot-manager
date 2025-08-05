@@ -3,6 +3,10 @@ export interface LoginDTO {
     password: string
 }
 
+export interface SingUPDTO extends LoginDTO {
+    name: string
+}
+
 export interface LoginResponse {
     token: string
     user: {
@@ -19,6 +23,12 @@ export interface Chatbot {
     description: string
     owner: string
     messages: ChatbotMessage[]
+}
+
+export interface CreateChatbotDTO{
+    name: string, 
+    description: string,
+    owner: string
 }
 
 export interface ChatbotMessage {

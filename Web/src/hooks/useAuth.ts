@@ -2,6 +2,7 @@ import { useCallback } from "react";
 import { useUser } from "./useUser";
 import { useLocalStorage } from "./useLocalStorage";
 import type { User } from "../interfaces/User";
+import type { SingUPDTO } from "../api/Api.type";
 import APIService from "../api/API.service";
 
 export const useAuth = () => {
@@ -17,6 +18,18 @@ export const useAuth = () => {
         setItem("app_token", parsedUser.authToken ?? "");
         return parsedUser;
       }
+    }
+  };
+
+  const singup = async (singupDto: SingUPDTO) => {
+    try {
+      const res = await APIService.signup(singupDto);
+      if (res?.data?.message === "User created.") {
+        return true;
+      }
+      return false;
+    } catch (err) {
+      console.log("err", err);
     }
   };
 
@@ -38,5 +51,5 @@ export const useAuth = () => {
     removeUser();
   };
 
-  return { login, logout, user, setUser, loadUserInformation };
+  return { login, logout, user, setUser, loadUserInformation, singup };
 };

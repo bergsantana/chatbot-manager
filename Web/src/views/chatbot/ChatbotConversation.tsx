@@ -30,7 +30,7 @@ export default function ChatbotConversation() {
   };
 
   const onSendMessage = async () => {
-    setLoading(true)
+    setLoading(true);
     if (chatInput && chat?.id) {
       const res = await sendMessage({
         chatbotId: chat.id,
@@ -55,7 +55,7 @@ export default function ChatbotConversation() {
         setChatInput("");
       }
     }
-    setLoading(false)
+    setLoading(false);
   };
 
   useEffect(() => loadChatbotInfo, []);

@@ -4,6 +4,9 @@ import HamburgerIcon from "../atoms/icons/HamburguerIcon";
 import Dropdown from "../molecules/Dropdown";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import Button from "../atoms/Button";
+import ArrowLeftIcon from "../atoms/icons/ArrowLeftIcon";
+import Tooltip from "../molecules/Tooltip";
 
 export interface HeaderProps {
   loggedIn: boolean;
@@ -46,13 +49,18 @@ export default function Header({ loggedIn }: HeaderProps) {
     <header className=" ">
       <div className="bg-white rounded-md   mb-1.5 p-1">
         <div
-          className="flex  justify-start gap-1  "
+          className="flex  justify-between gap-1  "
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
         >
           <Dropdown
             items={itens}
             label={<HamburgerIcon isOpen={isDropdownOpen} />}
           />
+          <Tooltip content="Go Back" position="left">
+            <Button className="bg-white" onClick={() => history.back()}>
+              <ArrowLeftIcon />
+            </Button>
+          </Tooltip>
         </div>
       </div>
       <Divider />
