@@ -3,7 +3,7 @@ using MongoDB.Driver;
 
 namespace _.ChatbotManager.Application.Services;
 
-public class ChatbotService
+public class ChatbotService: IChatbotService
 {
     private readonly IMongoCollection<Chatbot> _chatbots;
 
@@ -43,10 +43,4 @@ public class ChatbotService
     public async Task DeleteAsync(string id) =>
         await _chatbots.DeleteOneAsync(bot => bot.Id == id);
 }
-public class PagedResult<T>
-{
-    required public IEnumerable<T> Items { get; set; }
-    public long TotalCount { get; set; }
-    public int PageNumber { get; set; }
-    public int PageSize { get; set; }
-}
+ 

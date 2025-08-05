@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using System.Net;
 using System.Security.Claims;
+using System.Text.Json.Serialization;
+using _.ChatbotManager.Infrastructure.Ollama;
+using Microsoft.Extensions.Options;
 
 namespace AuthApi.Controllers;
 
@@ -21,11 +24,13 @@ public class ChatbotController : ControllerBase
 {
     private readonly ChatbotService _service;
     private readonly RedisCacheService _cache;
-    public ChatbotController(ChatbotService service, RedisCacheService cache)
+    private readonly string _ollamaUrl;
+     public ChatbotController(ChatbotService service, RedisCacheService cache,  IConfiguration config )
     {
         _service = service;
         _cache = cache;
-    }
+        _ollamaUrl = config["Ollama:BaseUrl"];
+     }
 
     private string? GetUserEmail()
     {
@@ -119,19 +124,20 @@ public class ChatbotController : ControllerBase
             model = "llama3",
             messages = fullMessages
         };
+ 
 
         var httpClient = new HttpClient();
-        var response = await httpClient.PostAsJsonAsync("http://localhost:11434/v1/chat/completions", ollamaRequest);
+        var response = await httpClient.PostAsJsonAsync($"{_ollamaUrl}/v1/chat/completions", ollamaRequest);
 
         if (response != null && !response.IsSuccessStatusCode)
             return StatusCode((int)response.StatusCode, "Failed to communicate with Ollama");
 
         if (response == null)
         {
-          throw new Exception("Reponse from Ollama is Null");
+            throw new Exception("Reponse from Ollama is Null");
         }
 
-        var resultJson =  await response.Content?.ReadFromJsonAsync<OllamaChatResponse>()  ;
+        var resultJson = await response.Content?.ReadFromJsonAsync<OllamaChatResponse>();
         var assistantReply = resultJson?.Choices?.FirstOrDefault()?.Message.Content;
 
         if (string.IsNullOrWhiteSpace(assistantReply))

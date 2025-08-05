@@ -1,7 +1,11 @@
 using _.ChatbotManager.Application.Services;
+using _.ChatbotManager.Infrastructure.Ollama;
+
 using _.Models;
 using _.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
+
 using Microsoft.IdentityModel.Tokens;
 using StackExchange.Redis;
 using System.Text;
@@ -10,6 +14,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services
 builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDbSettings"));
+builder.Services.Configure<OllamaOptions>(builder.Configuration.GetSection("Ollama"));
+builder.Services.AddHttpClient("OllamaClient", (sp, client) =>
+{
+    var options = sp.GetRequiredService<IOptions<OllamaOptions>>().Value;
+    client.BaseAddress = new Uri(options.BaseUrl);
+});
 builder.Services.AddSingleton<UserService>();
 builder.Services.AddSingleton<ChatbotService>();
 builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
