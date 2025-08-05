@@ -1,6 +1,25 @@
 version: "3.8"
 
 services:
+  api:
+    container_name: my-aspnet-api
+    image: my-aspnet-api:latest
+    build:
+      context: ./Server
+      dockerfile: Dockerfile
+    ports:
+      - "5000:80"
+    depends_on:
+      - mongo
+      - redis
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - MongoDB__ConnectionString=mongodb://mongodb:27017
+      - MongoDB__DatabaseName=AuthDb
+      - Redis__ConnectionString=redis:6379
+    networks:
+      - app-network
+
   mongo:
     image: mongo:8
     container_name: mongodb
@@ -11,6 +30,8 @@ services:
       - mongo-data:/data/db
     environment:
       MONGO_INITDB_DATABASE: AuthDb
+    networks:
+      - app-network
 
   redis:
     image: redis:7-alpine
@@ -26,6 +47,12 @@ services:
       - "5540:5540"
     volumes:
       - redis-insight:/data
+    networks:
+      - app-network
 volumes:
   mongo-data:
   redis-insight:
+
+networks:
+  app-network:
+    driver: bridge

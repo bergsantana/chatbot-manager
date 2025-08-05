@@ -45,3 +45,5 @@ E:\code\desafios\csharp\chatbot-manager\server\obj\Debug\net9.0\refint\..dll
 E:\code\desafios\csharp\chatbot-manager\server\obj\Debug\net9.0\..pdb
 E:\code\desafios\csharp\chatbot-manager\server\obj\Debug\net9.0\..genruntimeconfig.cache
 E:\code\desafios\csharp\chatbot-manager\server\obj\Debug\net9.0\ref\..dll
+E:\code\desafios\csharp\chatbot-manager\Server\bin\Debug\net9.0\Pipelines.Sockets.Unofficial.dll
+E:\code\desafios\csharp\chatbot-manager\Server\bin\Debug\net9.0\StackExchange.Redis.dll

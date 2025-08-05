@@ -3,6 +3,7 @@ using _.Models;
 using _.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using StackExchange.Redis;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDbSettings"));
 builder.Services.AddSingleton<UserService>();
 builder.Services.AddSingleton<ChatbotService>();
+builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
+{
+    var config = builder.Configuration.GetValue<string>("Redis:Connection");
+    return ConnectionMultiplexer.Connect(config!);
+});
 
 // JWT config
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -32,7 +38,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddAuthorization();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-// builder.Services.AddSwaggerGen();
+builder.Services.AddSingleton<RedisCacheService>();
+
 
 builder.Services.AddCors(options =>
 {
@@ -41,9 +48,6 @@ builder.Services.AddCors(options =>
 
 
 var app = builder.Build();
-
-// app.UseSwagger();
-// app.UseSwaggerUI();
 
 app.UseAuthentication();
 app.UseAuthorization();

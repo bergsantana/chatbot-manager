@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "E:\\code\\desafios\\csharp\\chatbot-manager\\Server\\..csproj": {}
+    "E:\\code\\desafios\\csharp\\chatbot-manager\\Server\\ChatbotManager.csproj": {}
   },
   "projects": {
-    "E:\\code\\desafios\\csharp\\chatbot-manager\\Server\\..csproj": {
+    "E:\\code\\desafios\\csharp\\chatbot-manager\\Server\\ChatbotManager.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\code\\desafios\\csharp\\chatbot-manager\\Server\\..csproj",
-        "projectName": ".",
-        "projectPath": "E:\\code\\desafios\\csharp\\chatbot-manager\\Server\\..csproj",
+        "projectUniqueName": "E:\\code\\desafios\\csharp\\chatbot-manager\\Server\\ChatbotManager.csproj",
+        "projectName": "ChatbotManager",
+        "projectPath": "E:\\code\\desafios\\csharp\\chatbot-manager\\Server\\ChatbotManager.csproj",
         "packagesPath": "C:\\Users\\outros\\.nuget\\packages\\",
         "outputPath": "E:\\code\\desafios\\csharp\\chatbot-manager\\Server\\obj\\",
         "projectStyle": "PackageReference",
