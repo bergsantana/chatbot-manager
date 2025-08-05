@@ -30,7 +30,7 @@ src/
 │   ├── molecules/         # Combinações de átomos (FormField, Notification)
 │   ├── organisms/         # Combinações de moleculas (LoginForm, ChatHeader)
 ├── contexts/              # Context Providers (ex: AuthContext)
-├── hooks/                 # Hooks customizados (e.g., useAuth, useChatbots)
+├── hooks/                 # Hooks customizados (ex: useAuth, useChatbots)
 ├── api/                   # Axios + conexão a API
 │   utils/                 # helpers
 ├── views/                 # Páginas da aplicação
@@ -57,7 +57,7 @@ src/
  - Docker
 
 
-### Installation
+### Instalação
  #### Server
  - Clone esse repositório
  - Comece os containers da pasta raiz:
