@@ -1,7 +1,10 @@
 ### Tech
+#### Backend
  - Ollama with llama3 model
  - .NET 9
  - Mongodb
+ - Redis
+#### Frontend
  - Vite React
  - TailwindCSS
  - Docker
