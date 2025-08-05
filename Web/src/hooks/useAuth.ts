@@ -3,7 +3,7 @@ import { useUser } from "./useUser";
 import { useLocalStorage } from "./useLocalStorage";
 import type { User } from "../interfaces/User";
 import type { SingUPDTO } from "../api/Api.type";
-import APIService from "../api/API.service";
+import APIService from "../api/Api.service";
 
 export const useAuth = () => {
   const { addUser, removeUser, user, setUser } = useUser();
@@ -40,6 +40,7 @@ export const useAuth = () => {
       const data = res?.data;
       if (data.token && data.user) {
         const userInfo: User = { authToken: data.token, ...data.user };
+        setItem("app_token", data.token);
         addUser(userInfo);
       }
     } catch (err) {

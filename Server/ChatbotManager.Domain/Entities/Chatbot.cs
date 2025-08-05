@@ -19,7 +19,7 @@ public class Chatbot
     [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
     public string? Id { get; set; }
 
-    
+
 
     [BsonElement("name")]
     public string Name { get; set; } = "";

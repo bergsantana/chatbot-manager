@@ -15,6 +15,7 @@ export const useUser = () => {
 
   const removeUser = () => {
     setUser(null);
+    setItem('app_token', "")
     setItem("user", "");
   };
 

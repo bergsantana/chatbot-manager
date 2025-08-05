@@ -1,4 +1,4 @@
-import APIService from "../api/API.service";
+import APIService from "../api/Api.service";
 import type {
   Chatbot,
   ChatbotListResponse,

@@ -1,7 +1,7 @@
 using _.Models;
 using MongoDB.Driver;
 
-namespace _.Services;
+namespace _.ChatbotManager.Application.Services;
 
 public class ChatbotService
 {
@@ -10,8 +10,8 @@ public class ChatbotService
     public ChatbotService(IConfiguration config)
     {
         var settings = config.GetSection("MongoDbSettings").Get<MongoDbSettings>();
-        var client = new MongoClient(settings.ConnectionString);
-        var db = client.GetDatabase(settings.DatabaseName);
+        var client = new MongoClient(settings?.ConnectionString);
+        var db = client.GetDatabase(settings?.DatabaseName);
         _chatbots = db.GetCollection<Chatbot>("Chatbots");
     }
 
@@ -45,7 +45,7 @@ public class ChatbotService
 }
 public class PagedResult<T>
 {
-    public IEnumerable<T> Items { get; set; }
+    required public IEnumerable<T> Items { get; set; }
     public long TotalCount { get; set; }
     public int PageNumber { get; set; }
     public int PageSize { get; set; }

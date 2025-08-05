@@ -13,6 +13,8 @@ export default function Signup() {
   const { singup } = useAuth();
   const navigate = useNavigate();
 
+  const goToLogin = () => navigate('/login')
+
   const handleSubmit = async () => {
     if (name && password && email) {
       singup({
@@ -52,10 +54,15 @@ export default function Signup() {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-
       <Button className="w-52 mx-auto" onClick={handleSubmit}>
         Submit
       </Button>
+      <div className="flex  flex-col  p-3 mx-auto  ">
+        <Text variant="caption" className="text-center">Already registered?</Text>
+        <Button size="sm" variant="ghost" onClick={goToLogin}>
+          Login here
+        </Button>
+      </div>
     </div>
   );
 }

@@ -1,19 +1,20 @@
 
+using _.ChatbotManager.Application.Interfaces.Application.Interfaces;
 using _.Models;
 using MongoDB.Driver;
 
 namespace _.Services;
 
-public class UserService
+public class UserService : IUserService
 {
     private readonly IMongoCollection<User> _users;
 
     public UserService(IConfiguration config)
     {
         var settings = config.GetSection("MongoDbSettings").Get<MongoDbSettings>();
-        var client = new MongoClient(settings.ConnectionString);
-        var database = client.GetDatabase(settings.DatabaseName);
-        _users = database.GetCollection<User>(settings.UsersCollectionName);
+        var client = new MongoClient(settings?.ConnectionString);
+        var database = client.GetDatabase(settings?.DatabaseName);
+        _users = database.GetCollection<User>(settings?.UsersCollectionName);
     }
 
     public async Task<User?> GetByEmailAsync(string email) =>

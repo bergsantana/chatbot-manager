@@ -25,7 +25,7 @@ export default function Login() {
       name: "password",
       label: "Password",
       type: "password",
-      placeholder: "example@gmail.com",
+      placeholder: "******",
     },
   ];
 
