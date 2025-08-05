@@ -19,14 +19,7 @@ services:
       - Redis__ConnectionString=chat-redis:6379
     networks:
       - app-network
-    deploy:
-      resources:
-        limits:
-          cpus: '6.0'
-          memory: 16g
-        reservations:
-          cpus: '2.0'
-          memory: 4g
+ 
     
   vite:
     container_name: vite-app
@@ -90,6 +83,14 @@ services:
       - OLLAMA_MODELS=/root/.ollama
     networks:
       - app-network
+    deploy:
+      resources:
+        limits:
+          cpus: '6.0'
+          memory: 16g
+        reservations:
+          cpus: '2.0'
+          memory: 4g
 volumes:
   mongo-data:
   redis-insight:
