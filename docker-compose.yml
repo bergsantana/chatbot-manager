@@ -9,7 +9,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "5179:8080"
-       
     depends_on:
       - mongo
       - chat-redis
@@ -20,7 +19,23 @@ services:
       - Redis__ConnectionString=chat-redis:6379
     networks:
       - app-network
+    
+  vite:
+    container_name: vite-app
+    build:
+      context: ./Web
+      dockerfile: ./Dockerfile
+    ports:
+      - "5173:8080" # for dev
+      # - "80:80"    # for prod if using nginx
+  
+    environment:
+      - NODE_ENV=development
+    networks:
+      - app-network
+    
 
+  
   mongo:
     image: mongo:8
     container_name: mongo
@@ -71,7 +86,7 @@ volumes:
   mongo-data:
   redis-insight:
   ollama-models:
-
+ 
 networks:
   app-network:
     driver: bridge

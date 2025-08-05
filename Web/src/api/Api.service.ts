@@ -15,6 +15,7 @@ const axiosInstance: AxiosInstance = axios.create({
   baseURL: APIConfig.url,
   headers: {
     "Content-Type": "application/json",
+    'Access-Control-Allow-Origin': '*'
   },
 });
 
@@ -24,6 +25,7 @@ function parseError(error: any): string {
 }
 
 axiosInstance.interceptors.request.use((config) => {
+  token = localStorage.getItem('app_token')
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
